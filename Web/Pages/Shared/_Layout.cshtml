@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ای ام لرن | @ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body>
+    <!-- Start Header -->
+    <div class="Landing-layer">
+        <div class="container">
+            <partial name="_Header"/>
+            @RenderSection("Brand",false)
+        </div>
+    </div>
+    <!-- End Header -->
+    <!-- main manu -->
+    <partial name="_Navbar"/>
+    <!-- /main manu -->
+    <!-- Start Main -->
+    @RenderBody()
+    <!-- End Main -->
+    <!-- Start Footer -->
+    <partial name="_Footer"/>
+    <!-- End Footer -->
+</body>
+
+</html>
