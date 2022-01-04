@@ -829,14 +829,17 @@ main {
   background-size: cover;
 }
 
-.navigation {
-  direction: rtl;
-  color: wheat;
-  margin-top: 2rem;
-  margin-right: 4rem;
+.navigation-ul {
+    direction: rtl;
+    color: wheat;
+    margin-top: 2rem;
+    margin-right: 4rem;
+}
+.navigation-ul {
+    direction: rtl;
 }
 .navigation a:link {
-  color: #000;
+    color: #000;
 }
 .navigation-item {
   padding: 0 1rem;
@@ -847,10 +850,14 @@ main {
 }
 
 .main-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    background-color: rgb(255, 243, 224);
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: .5rem 1rem 2rem rgb(55, 71, 79);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .main-box-h1 {
   color: #47443d;
@@ -880,7 +887,7 @@ main {
   box-shadow: 0 0 10px wheat;
 }
 .main-box .remember-me {
-  color: wheat;
+  color: black;
   margin: 1rem auto;
   direction: rtl;
 }
