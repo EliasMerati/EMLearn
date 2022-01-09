@@ -3,58 +3,66 @@
 @{
     ViewData["Title"] = "ثبت نام";
 }
-<ul class="navigation-ul row">
-            <li class="navigation-item">
-                <a class="link-a" href="#">ای ام لرن</a>
-            </li>
-            /
-            <li class="navigation-item active">
-                عضویت در سایت
-            </li>
-        </ul>
 
-        <main>
-            <div class="main-box">
-                <h1 class="main-box-h1">عضویت در سایت</h1>
-                <div class="main-box-input">
-                    <span class="main-box-input-addon">
-                      <i class="fas fa-user">
-                        
-                      </i>
-                    </span>
-                    <input type="text" class="form-control" placeholder="نام و نام خانوادگی">
-                </div>
-                <div class="main-box-input">
-                    <span class="main-box-input-addon">
-                    <i class="fas fa-envelope">
-                        
-                    </i>
-                
-                    <input type="text" class="form-control" placeholder="ایمیل">
-                </span></div>
-                <div class="main-box-input">
-                    <span class="main-box-input-addon">
-                    <i class="fas fa-lock">
-                        
+<ul class="navigation-ul row">
+    <li class="navigation-item">
+        <a class="link-a" href="/">ای ام لرن</a>
+    </li>
+    /
+    <li class="navigation-item active">
+        عضویت در سایت
+    </li>
+</ul>
+
+<main>
+    <form  method="post">
+        <div class="main-box">
+
+            <h1 class="main-box-h1">عضویت در سایت</h1>
+            <div class="main-box-input">
+                <span class="main-box-input-addon">
+                    <i class="fas fa-user">
+
                     </i>
                 </span>
-                    <input type="password" class="form-control" placeholder="کلمه عبور">
-                </div>
-                <div class="remember-me">
-                    <label>
-                    <input type="checkbox">
-                    قوانین و مقررات سایت را میپذیرم
-                </label>
-                </div>
-                <div class="link">
-                    <a href="#" class="link-a">
-                        <i class="fas fa-balance-scale"></i> قوانین و مقررات
-                    </a>
-                    <br>
-                    <a href="#" class="link-a">
-                        <i class="fas fa-user"></i> ورود به سایت
-                    </a>
-                </div>
-                <button class="btn">عضویت در سایت</button>
+                <input type="text" asp-for="user.UserName" class="form-control" placeholder="نام و نام خانوادگی">
             </div>
-        </main>
+            <span asp-validation-for="user.UserName" class="textdanger"></span>
+            <div class="main-box-input">
+                <span class="main-box-input-addon">
+                    <i class="fas fa-envelope">
+
+                    </i>
+
+                    <input type="email" asp-for="user.Email" class="form-control" placeholder="ایمیل">
+                </span>
+            </div>
+            <span asp-validation-for="user.Email" class="textdanger"></span>
+            <div class="main-box-input">
+                <span class="main-box-input-addon">
+                    <i class="fas fa-lock">
+
+                    </i>
+                </span>
+                <input type="password" asp-for="user.Password" class="form-control" placeholder="کلمه عبور">
+            </div>
+            <span asp-validation-for="user.Password" class="textdanger"></span>
+            <div class="main-box-input">
+                <span class="main-box-input-addon">
+                    <i class="fas fa-lock">
+
+                    </i>
+                </span>
+                <input type="password" asp-for="user.RePassword" class="form-control" placeholder=" تکرار کلمه عبور">
+            </div>
+            <span asp-validation-for="user.RePassword" class="textdanger"></span>
+            <div>
+                <a href="#" class="link-a">
+                    <i class="fas fa-user"></i> ورود به سایت
+                </a>
+            </div>
+            <input class="btn" type="submit"  value="عضویت در سایت" />
+
+        </div>
+    </form>
+</main>

@@ -23,7 +23,7 @@ namespace Domain.Entities.User
         public string RoleTitle { get; set; }
 
         #region Relations
-        public virtual List<Role> Roles { get; set; }
+        public virtual List<User> Users { get; set; }
         #endregion
     }
 }

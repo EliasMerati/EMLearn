@@ -12,6 +12,7 @@
   justify-content: center;
   align-items: center;
   direction: rtl;
+  margin:2rem auto;
   width: 100%;
   padding: 1rem auto;
   box-shadow: 0 0 20px #039703;
@@ -1086,18 +1087,8 @@ hr {
   height: 100%;
 }
 
-.success {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  direction: rtl;
-  width: 500px;
-  height: 150px;
-  box-shadow: 0 0 20px #039703;
-  background-color: #81fca0;
-  color: #025f02;
-  border: 2px solid #039703;
-  border-radius: 1rem;
+.textdanger{
+    color:darkred;
 }
 .success-items {
   width: 100%;

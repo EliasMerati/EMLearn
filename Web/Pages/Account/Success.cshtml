@@ -1,0 +1,25 @@
+﻿@page "/Success"
+@model Web.Pages.Shared.SuccessModel
+@{
+    ViewData["Title"] = "موفقیت در ثبت نام";
+}
+
+<ul class="navigation-ul row">
+    <li class="navigation-item">
+        <a class="link-a" href="/">ای ام لرن</a>
+    </li>
+    /
+    <li class="navigation-item active">
+        موفقیت در ثبت نام
+    </li>
+</ul>
+
+<div class="success">
+<h2 >@*@Model.user.UserName *@عزیز!</h2>
+<br />
+<p > ثبت نام شما با موفقیت انجام شد. ایمیلی حاوی کد فعالسازی به @*@Model.user.Email*@ برای شما ارسال شده است.</p>
+<br />
+<p > جهت فعالسازی حساب کاربری خود وارد ایمیل خود شوید و روی کد فعالسازی کلیک کنید.</p>
+<br />
+<p > با تشکر از شما        ای ام لرن</p>
+</div>
