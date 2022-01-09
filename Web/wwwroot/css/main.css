@@ -8,60 +8,71 @@
 }
 
 .success {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  direction: rtl;
-  margin:2rem auto;
-  width: 100%;
-  padding: 1rem auto;
-  box-shadow: 0 0 20px #039703;
-  background-color: #81fca0;
-  color: #025f02;
-  border: 2px solid #06af06;
-  border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+    width:65%;
+    line-height: 15px;
+    margin: 2rem auto;
+    padding: 2rem ;
+    box-shadow: 0 0 20px #039703;
+    background-color: #81fca0;
+    color: #025f02;
+    border: 2px solid #06af06;
+    border-radius: 1rem;
 }
 
 .danger {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  direction: rtl;
-  width: 100%;
-  padding: 1rem auto;
-  box-shadow: 0 0 20px #6b0000;
-  background-color: #dd7575;
-  color: #770101;
-  border: 2px solid #d40303;
-  border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 15px;
+    margin: 2rem auto;
+    direction: rtl;
+    width: 65%;
+    padding: 2rem;
+    box-shadow: 0 0 20px #6b0000;
+    background-color: #dd7575;
+    color: #770101;
+    border: 2px solid #d40303;
+    border-radius: 1rem;
 }
 
 .warning {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  direction: rtl;
-  width: 100%;
-  padding: 1rem auto;
-  box-shadow: 0 0 20px #555401;
-  background-color: #ebec82;
-  color: #757701;
-  border: 2px solid #ffee00;
-  border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+    flex-direction: column;
+    margin: 2rem auto;
+    line-height: 15px;
+    width: 65%;
+    padding: 2rem;
+    box-shadow: 0 0 20px #555401;
+    background-color: #ebec82;
+    color: #757701;
+    border: 2px solid #ffee00;
+    border-radius: 1rem;
 }
 
 .info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  direction: rtl;
-  width: 100%;
-  padding: 1rem auto;
-  box-shadow: 0 0 20px #00406b;
-  background-color: #75bcdd;
-  color: #015277;
-  border: 2px solid #04f7ff;
-  border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+    flex-direction: column;
+    margin: 2rem auto;
+    line-height: 15px;
+    width: 65%;
+    padding: 2rem;
+    box-shadow: 0 0 20px #00406b;
+    background-color: #75bcdd;
+    color: #015277;
+    border: 2px solid #04f7ff;
+    border-radius: 1rem;
 }
 
 @media (min-width: 576px) {
