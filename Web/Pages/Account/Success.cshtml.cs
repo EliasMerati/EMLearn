@@ -7,14 +7,12 @@ namespace Web.Pages.Shared
 {
     public class SuccessModel : PageModel
     {
-        private IUserService _userservice;
-        public SuccessModel(IUserService userservice)
-        {
-            _userservice = userservice;
-        }
 
+        [BindProperty(SupportsGet =true)]
+        public User user { get; set; }
         public void OnGet()
         {
+           
             
         }
     }

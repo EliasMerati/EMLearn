@@ -57,7 +57,7 @@ namespace Web.Pages.Account
             };
             _userservice.AddUser(newuser);
             
-            return RedirectToPage();
+            return RedirectToPage("Success",newuser);
         }
     }
 }
