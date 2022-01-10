@@ -1,5 +1,9 @@
 ﻿using Domain.Context;
 using Domain.Entities.User;
+using EMLearn.Infrastructure.Security;
+using Infrastructure.Convertors;
+using Infrastructure.DTOs;
+using Infrastructure.Generators;
 using Infrastructure.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,6 +19,19 @@ namespace Infrastructure.Services
         public UserService(EMLearnContex db)
         {
             _db = db;
+        }
+
+        public bool ActiveAccount(string activecode)
+        {
+            var user = _db.Users.FirstOrDefault(u => u.ActiveCode == activecode);
+            if (user == null || user.IsActive)
+            {
+                return false;
+            } 
+            user.IsActive = true;
+            user.ActiveCode = CodeGenerator.GenerateUniqCode();
+            _db.SaveChanges();
+            return true;
         }
 
         public int AddUser(User user)
@@ -33,6 +50,13 @@ namespace Infrastructure.Services
         public bool IsExistUserName(string userName)
         {
             return _db.Users.Any(_u => _u.UserName == userName);
+        }
+
+        public User LoginUser(LoginViewModel login)
+        {
+            string hashpass = PasswordHelper.EncodePasswordMd5(login.Password);
+            string email = FixedText.FixedEmail(login.Email);
+            return _db.Users.SingleOrDefault(u => u.Email == email && u.Password == hashpass);
         }
     }
 }

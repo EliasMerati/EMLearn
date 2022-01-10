@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.User;
+using Infrastructure.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace Infrastructure.Services.Interfaces
         bool IsExistUserName(string userName);  
         bool IsExistEmail(string email);
         int AddUser(User user);
+        User LoginUser(LoginViewModel login);
+        bool ActiveAccount(string activecode);
     }
 }

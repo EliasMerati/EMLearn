@@ -1,0 +1,64 @@
+﻿@page "/Login"
+@model Web.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "ورود به سایت";
+}
+<div class="container">
+    <ul class="navigation-ul row">
+        <li class="navigation-item">
+            <a class="link-a" href="/">ای ام لرن</a>
+        </li>
+        /
+        <li class="navigation-item active">
+            ورود به سایت
+        </li>
+    </ul>
+</div>
+
+<!-- Start Main -->
+
+<main>
+    <form method="post">
+        <div class="main-box">
+           
+            <h1 class="main-box-h1">ورود به سایت</h1>
+            <div class="main-box-input">
+                <span class="main-box-input-addon">
+                    <i class="fas fa-envelope">
+                    </i>
+                </span>
+                <input type="email" asp-for="login.Email" class="form-control" placeholder="ایمیل">
+            </div>
+            <span asp-validation-for="login.Email" class="textdanger"></span>
+            <div class="main-box-input">
+                <span class="main-box-input-addon">
+                    <i class="fas fa-lock">
+
+                    </i>
+                </span>
+                <input asp-for="login.Password" type="password" class="form-control" placeholder="کلمه عبور">
+            </div>
+            <span asp-validation-for="login.Password" class="textdanger"></span>
+            <div class="remember-me">
+                <label>
+                    <input asp-for="login.RememberMe" type="checkbox">
+                    مرا به خاطر بسپار
+                </label>
+            </div>
+            <div class="link">
+                <a href="/ForgotPassword" class="link-a">
+                    <i class="fas fa-lock"></i> رمز عبور خود را فراموش کرده ام!
+                </a>
+                <br>
+                <a href="/Register" class="link-a">
+                    <i class="fas fa-user"></i> عضویت در سایت
+                </a>
+            </div>
+            <input type="submit" class="btn" value="ورود به سایت">
+
+
+        </div>
+    </form>
+</main>
+
+<!-- End Main -->

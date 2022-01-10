@@ -57,6 +57,8 @@ namespace Web.Pages.Account
             };
             _userservice.AddUser(newuser);
             
+            // TODO : Send Activation Email
+            
             return RedirectToPage("Success",newuser);
         }
     }
