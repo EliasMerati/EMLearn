@@ -1,35 +1,44 @@
-﻿            <header>
-                <nav class="row navbar">
-                    <div class="navbar-left">
-                        <div class="signin">
-                            <div>
-                                <p class="login hidden">
-                                    الیاس مرآتی ، خوش آمدید <i class="fas fa-user"></i>
-                                </p>
-                            </div>
-                            <div class="login">
-                                <a href="/Login"> ورود </a> /
-                                <a href="/Register"> عضویت </a>
-                            </div>
-                        </div>
+﻿<header>
+    <nav class="row navbar">
+        <div class="navbar-left">
+            <div class="signin">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div>
+                        <p class="login">
+                               خوش آمدید ، "@User.Identity.Name" <i class="fas fa-user"></i> 
+                        </p>
+                        /
+                        <a href="/Logout"> خروج </a>
                     </div>
-                    <div class="navbar-middle">
-                        <a href="/">
-                            <img class="logo" src="/Images/logo.png" alt="EMLogoHome" />
-                        </a>
+                }
+                else
+                {
+                    <div class="login">
+                        <a href="/Login"> ورود </a> /
+                        <a href="/Register"> عضویت </a>
                     </div>
-                    <div class="navbar-right">
-                        <ul class="navbar-right-ul row">
-                            <a href="#">
-                                <li class="navbar-right-li">درباره ما</li>
-                            </a>
-                            <a href="#">
-                                <li class="navbar-right-li">تماس با ما</li>
-                            </a>
-                            <a href="#">
-                                <li class="navbar-right-li">همکاری در فروش</li>
-                            </a>
-                        </ul>
-                    </div>
-                </nav>
-            </header>
+                }
+
+            </div>
+        </div>
+        <div class="navbar-middle">
+            <a href="/">
+                <img class="logo" src="/Images/logo.png" alt="EMLogoHome" />
+            </a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-right-ul row">
+                <a href="#">
+                <li class="navbar-right-li">درباره ما</li>
+                </a>
+                <a href="#">
+                <li class="navbar-right-li">تماس با ما</li>
+                </a>
+                <a href="#">
+                <li class="navbar-right-li">همکاری در فروش</li>
+                </a>
+            </ul>
+        </div>
+    </nav>
+</header>

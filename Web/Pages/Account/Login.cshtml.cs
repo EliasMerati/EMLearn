@@ -1,7 +1,11 @@
 ﻿using Infrastructure.DTOs;
 using Infrastructure.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Web.Pages.Account
 {
@@ -29,7 +33,17 @@ namespace Web.Pages.Account
             {
                 if (user.IsActive)
                 {
-                    //TODO : Login User
+                    var Claims = new List<Claim>() 
+                    {
+                        new Claim(ClaimTypes.NameIdentifier,user.UserId.ToString()),
+                        new Claim(ClaimTypes.Name,user.UserName.ToString())
+                    };
+                    var Identity = new ClaimsIdentity(Claims,CookieAuthenticationDefaults.AuthenticationScheme);
+                    var Principal = new ClaimsPrincipal(Identity);
+                    var Properties = new AuthenticationProperties {
+                        IsPersistent = login.RememberMe
+                    };
+                    HttpContext.SignInAsync(Principal,Properties);
                     return RedirectToPage("/Index",user);
                 }
                 else
