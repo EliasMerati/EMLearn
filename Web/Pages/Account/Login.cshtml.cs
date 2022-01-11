@@ -30,14 +30,14 @@ namespace Web.Pages.Account
                 if (user.IsActive)
                 {
                     //TODO : Login User
-                    return RedirectToAction("Index");
+                    return RedirectToPage("/Index",user);
                 }
                 else
                 {
-                    ModelState.AddModelError("email", "حساب کاربری شما فعال نشده است");
+                    ModelState.AddModelError("Email", "حساب کاربری شما فعال نشده است");
                 }
             }
-            ModelState.AddModelError("email", "کاربری با مشخصات وارد شده یافت نشد");
+            ModelState.AddModelError("Email", "کاربری با مشخصات وارد شده یافت نشد");
 
             return Page();
         }
