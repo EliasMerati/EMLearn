@@ -23,7 +23,7 @@ namespace Infrastructure.Services
 
         public bool ActiveAccount(string activecode)
         {
-            var user = _db.Users.FirstOrDefault(u => u.ActiveCode == activecode);
+            var user = _db.Users.SingleOrDefault(u => u.ActiveCode == activecode);
             if (user == null || user.IsActive)
             {
                 return false;
@@ -41,6 +41,11 @@ namespace Infrastructure.Services
             return user.UserId;
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return _db.Users.SingleOrDefault(e => e.Email == email);
+        }
+         
         public bool IsExistEmail(string email)
         {
             return _db.Users.Any(u => u.Email == email);

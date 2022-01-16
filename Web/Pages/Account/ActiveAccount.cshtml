@@ -1,7 +1,7 @@
 ﻿@page "/ActiveAccount"
 @model Web.Pages.Account.ActiveAccountModel
 @{
-    ViewData["Title"] = "فعالسازی حساب کاربری";
+    ViewData["Title"] = "فعالسازی حساب کاربری";  
 }
 
 <div class="container">
@@ -17,12 +17,25 @@
 </div>
 
 <div class="container">
-    @if (ViewBag.IsActive)
+    @if (ViewBag)
     {
-        
+        <div class="success">
+            <p>حساب کاربری شما فعال شد</p> 
+            <br/>
+            <p>
+                <a href="/Login">ورود به سایت</a>
+            </p>
+        </div>
+         
     }
     else
     {
-        
+        <div class="danger">
+            <p>حساب کاربری با مشخصات ارسال شده یافت نشد</p> 
+            <br/>
+            <p>
+                <a href="/">صفعه ی اصلی سایت</a>
+            </p>
+        </div>
     }
 </div>

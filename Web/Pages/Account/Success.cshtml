@@ -1,8 +1,9 @@
 ﻿@page "/Success"
-@model Web.Pages.Shared.SuccessModel
+@model Web.Pages.Account.SuccessModel
 @{
     ViewData["Title"] = "موفقیت در ثبت نام";
 }
+
 <div class="container">
     <ul class="navigation-ul row">
         <li class="navigation-item">
@@ -18,9 +19,9 @@
 <div class="success">
     <h2> "@Model.user.UserName" عزیز!</h2>
     <br />
-    <p> ثبت نام شما با موفقیت انجام شد. ایمیلی حاوی کد فعالسازی به "@Model.user.Email" برای شما ارسال شده است.</p>
+    <p> ثبت نام شما با موفقیت انجام شد. ایمیلی حاوی کد فعالسازی به <strong>"@Model.user.Email"</strong> برای شما ارسال شده است.</p>
     <br />
     <p> جهت فعالسازی حساب کاربری خود وارد ایمیل خود شوید و روی کد فعالسازی کلیک کنید.</p>
     <br />
-    <p> با تشکر از شما        ای ام لرن</p>
+    <p> با تشکر از شما <br/>       ای ام لرن</p>
 </div>

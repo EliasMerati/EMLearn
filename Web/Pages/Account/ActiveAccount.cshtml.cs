@@ -1,3 +1,4 @@
+using Infrastructure.Convertors;
 using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,12 +8,13 @@ namespace Web.Pages.Account
     public class ActiveAccountModel : PageModel
     {
         private IUserService _userservice;
-        public ActiveAccountModel(IUserService userservice)
+        
+        public ActiveAccountModel(IUserService userservice )
         {
             _userservice = userservice;
         }
-
-        
+        [BindProperty]
+        public bool ViewBag { get; set; }
 
         public void OnGet()
         {
@@ -20,11 +22,8 @@ namespace Web.Pages.Account
 
         public IActionResult OnPost(string id)
         {
-            if (_userservice.ActiveAccount(id))
-            {
 
-            }
-            
+            ViewBag = _userservice.ActiveAccount(id); 
             return Page();
         }
     }

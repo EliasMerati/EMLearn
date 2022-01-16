@@ -1,4 +1,5 @@
 using Domain.Context;
+using Infrastructure.Convertors;
 using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -39,6 +40,7 @@ namespace Web
 
             #region IOC
             services.AddTransient<IUserService,UserService>();
+            services.AddTransient<IViewRenderService, RenderViewToString>();
             #endregion
 
             #region Authentication

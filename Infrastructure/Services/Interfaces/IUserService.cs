@@ -14,6 +14,7 @@ namespace Infrastructure.Services.Interfaces
         bool IsExistEmail(string email);
         int AddUser(User user);
         User LoginUser(LoginViewModel login);
+        User GetUserByEmail(string email);
         bool ActiveAccount(string activecode);
     }
 }

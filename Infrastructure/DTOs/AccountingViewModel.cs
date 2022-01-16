@@ -48,4 +48,13 @@ namespace Infrastructure.DTOs
         [Display(Name = "مرا به خاطر بسپار")]
         public bool RememberMe { get; set; }
     }
+
+    public class ForgotPasswordViewModel
+    {
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Display(Name = "ایمیل")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
+        [EmailAddress(ErrorMessage = "ایمیل وارد شده صحیح نمیباشد")]
+        public string Email { get; set; }
+    }
 }

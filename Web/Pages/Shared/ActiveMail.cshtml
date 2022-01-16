@@ -1,0 +1,15 @@
+﻿@page "/ActiveMail"
+@model Web.Pages.Shared.ActiveMailModel
+@{
+    ViewData["Title"] = "شروع فعالسازی";
+}
+
+<div class="success">
+    <h2>"@Model.user.UserName" عزیز !</h2>
+    <p>
+        با تشکر از ثبت نام شما در ای ام لرن ، برای ادامه میبایست حساب کاربری خود را فعال کنید 
+    </p>
+    <p>
+        <a href="https://localhost:44307/ActiveAccount/@Model.user.ActiveCode"> فعالسازی حساب کاربری</a>
+    </p>
+</div>

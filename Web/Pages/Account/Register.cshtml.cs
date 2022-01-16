@@ -3,6 +3,7 @@ using EMLearn.Infrastructure.Security;
 using Infrastructure.Convertors;
 using Infrastructure.DTOs;
 using Infrastructure.Generators;
+using Infrastructure.Senders;
 using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,9 +18,11 @@ namespace Web.Pages.Account
         public RegisterViewModel user { get; set; }
 
         private IUserService _userservice;
-        public RegisterModel(IUserService userservice)
+        private IViewRenderService _renderservice;
+        public RegisterModel(IUserService userservice, IViewRenderService renderservice)
         {
-            _userservice = userservice;   
+            _userservice = userservice;
+            _renderservice = renderservice;
         }
         
         public void OnGet()
@@ -56,10 +59,14 @@ namespace Web.Pages.Account
                 Avatar = "Defult.jpg",
             };
             _userservice.AddUser(newuser);
-            
-            // TODO : Send Activation Email
-            
-            return RedirectToPage("Success",newuser);
+
+            #region Send Activation Email
+            string body = _renderservice.RenderToStringAsync("ActiveMail", user);
+            SendEmail.Send(newuser.Email, "فعالسازی", body);
+            #endregion
+
+
+            return RedirectToPage("Success", newuser);
         }
     }
 }
