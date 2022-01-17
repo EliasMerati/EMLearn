@@ -15,7 +15,6 @@ namespace Domain.Entities.User
         }
 
         [Key]
-        
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]

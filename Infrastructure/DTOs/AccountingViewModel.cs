@@ -57,4 +57,16 @@ namespace Infrastructure.DTOs
         [EmailAddress(ErrorMessage = "ایمیل وارد شده صحیح نمیباشد")]
         public string Email { get; set; }
     }
+
+    public class ActiveCodeViewModel
+    {
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Display(Name = "نام کاربری")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
+        public string UserName { get; set; }
+
+        [Display(Name = "کد فعالسازی")]
+        [MaxLength(100, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
+        public string ActiveCode { get; set; }
+    }
 }

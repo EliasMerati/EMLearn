@@ -61,10 +61,9 @@ namespace Web.Pages.Account
             _userservice.AddUser(newuser);
 
             #region Send Activation Email
-            string body = _renderservice.RenderToStringAsync("ActiveMail", user);
+            string body = _renderservice.RenderToStringAsync("ActiveMail", newuser);
             SendEmail.Send(newuser.Email, "فعالسازی", body);
             #endregion
-
 
             return RedirectToPage("Success", newuser);
         }

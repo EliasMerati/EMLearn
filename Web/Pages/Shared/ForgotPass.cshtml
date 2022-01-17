@@ -1,0 +1,15 @@
+﻿@page "/ForgotPass"
+@model Web.Pages.Shared.ForgotPassModel
+@{
+    ViewData["Title"] = "بازیابی کلمه عبور";
+}
+
+<div style="padding:20px;direction:rtl">
+    <h2>"@Model.user.UserName" عزیز !</h2>
+    <p>
+        جهت بازیابی حساب کاربری خود روی لینک زیر کلیک کنید 
+    </p>
+    <p>
+        <a href="https://localhost:44307/ResetPassword/@Model.user.ActiveCode"> فعالسازی حساب کاربری</a>
+    </p>
+</div>

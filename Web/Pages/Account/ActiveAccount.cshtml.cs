@@ -13,7 +13,7 @@ namespace Web.Pages.Account
         {
             _userservice = userservice;
         }
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public bool ViewBag { get; set; }
 
         public void OnGet()

@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Web.Pages.Shared
 {
-    public class ActiveMailModel : PageModel
+    public class ForgotPassModel : PageModel
     {
-        [BindProperty(SupportsGet = true)]
+        [BindProperty]
         public User user { get; set; }
         public void OnGet()
         {

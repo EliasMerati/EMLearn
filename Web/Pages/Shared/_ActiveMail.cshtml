@@ -1,0 +1,18 @@
+﻿@page "/ActiveMail"
+
+@{
+    ViewData["Title"] = "شروع فعالسازی";
+}
+@functions{
+    [BindProperty(SupportsGet =true)]
+    public Infrastructure.DTOs.ActiveCodeViewModel user { get; set; }
+}
+<div style="padding:20px;direction:rtl">
+    <h2>"@user.UserName" عزیز !</h2>
+    <p>
+        با تشکر از ثبت نام شما در ای ام لرن ، برای ادامه میبایست حساب کاربری خود را فعال کنید 
+    </p>
+    <p>
+        <a href="https://localhost:44307/ActiveAccount/@user.ActiveCode"> فعالسازی حساب کاربری</a>
+    </p>
+</div>
