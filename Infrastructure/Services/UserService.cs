@@ -7,6 +7,7 @@ using Infrastructure.Generators;
 using Infrastructure.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +22,14 @@ namespace Infrastructure.Services
             _db = db;
         }
 
+        #region User
         public bool ActiveAccount(string activecode)
         {
             var user = _db.Users.SingleOrDefault(u => u.ActiveCode == activecode);
             if (user == null || user.IsActive)
             {
                 return false;
-            } 
+            }
             user.IsActive = true;
             user.ActiveCode = CodeGenerator.GenerateUniqCode();
             _db.SaveChanges();
@@ -40,12 +42,11 @@ namespace Infrastructure.Services
             _db.SaveChanges();
             return user.UserId;
         }
-
         public User GetUserByEmail(string email)
         {
             return _db.Users.SingleOrDefault(e => e.Email == email);
         }
-         
+
         public bool IsExistEmail(string email)
         {
             return _db.Users.Any(u => u.Email == email);
@@ -63,5 +64,84 @@ namespace Infrastructure.Services
             string email = FixedText.FixedEmail(login.Email);
             return _db.Users.SingleOrDefault(u => u.Email == email && u.Password == hashpass);
         }
+
+        public void UpdateUser(User user)
+        {
+            _db.Users.Update(user);
+            _db.SaveChanges();
+        }
+        public User GetUserByUserName(string userName)
+        {
+            return _db.Users.SingleOrDefault(u => u.UserName == userName);
+        }
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        #region UserPannel
+        public InformationUserViewModel GetInformationUser(string username)
+        {
+            var user = GetUserByUserName(username);
+            InformationUserViewModel information = new InformationUserViewModel();
+            information.UserName = user.UserName;
+            information.Email = user.Email;
+            information.Wallet = 0;
+            information.RegisterDate = user.RegisterDate;
+
+            return information;
+        }
+
+        public SideBarViewModel GetSideBarUserPannelData(string username)
+        {
+            return _db.Users.Where(u => u.UserName == username).Select(u => new SideBarViewModel()
+            {
+                UserName = u.UserName,
+                ImageName = u.Avatar,
+                RegisterDate = u.RegisterDate,
+            }).Single();
+        }
+
+        public EditProfileViewModel GetDataForEditProfileUser(string username)
+        {
+            return _db.Users.Where(u => u.UserName == username).Select(u => new EditProfileViewModel()
+            {
+                UserName = u.UserName,
+                Email = u.Email,
+                AvatarName = u.Avatar
+            }).Single();
+        }
+
+        public void EditProfile(string username, EditProfileViewModel profile)
+        {
+            if (profile.UserAvatar != null)
+            {
+                string ImgPath = "";
+                if (profile.AvatarName != "Defult.jpg")
+                {
+                    ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar", profile.AvatarName);
+                    if (File.Exists(ImgPath))
+                    {
+                        File.Delete(ImgPath);
+                    }
+                }
+                profile.AvatarName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(profile.UserAvatar.FileName);
+                ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar", profile.AvatarName);
+                using (var stream = new FileStream(ImgPath, FileMode.Create))
+                {
+                    profile.UserAvatar.CopyTo(stream);
+                }
+            }
+            var user = GetUserByUserName(username);
+            if (user != null)
+            {
+                user.UserName = profile.UserName;
+                user.Email = profile.Email;
+                user.Avatar = profile.AvatarName; 
+
+                UpdateUser(user);
+            }
+        }
+
+        #endregion
     }
 }

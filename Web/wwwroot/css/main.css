@@ -941,6 +941,7 @@ main {
   margin: 0 2.5rem;
 }
 .section-right {
+  
   display: flex;
   flex-direction: column;
   align-items: center;

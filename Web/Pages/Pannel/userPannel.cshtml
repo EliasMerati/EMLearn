@@ -1,0 +1,38 @@
+﻿@page "/UserPannel"
+@model Web.Pages.Pannel.userPannelModel
+@{
+    ViewData["Title"] = "پنل کاربری" + User.Identity.Name;
+
+}
+
+<div class="container">
+    <ul class="navigation-ul row">
+        <li class="navigation-item">
+            <a class="link-a" href="/">ای ام لرن</a>
+        </li>
+        /
+        <li class="navigation-item active">
+            پنل کاربری
+        </li>
+    </ul>
+</div>
+
+    <!-- start main -->
+    <main class="main1">
+        <div class="container">
+            <div class="section row">
+                <partial name="_SideBar"/>
+                <section class="section-left">
+                    <nav>
+                        <ul>
+                            <li> <i class="icon fas fa-user-tie"></i>نام کاربری :"@Model.information.UserName"</li>
+                            <li><i class="icon fas fa-mail-bulk"></i>ایمیل :"@Model.information.Email"</li>
+                            <li><i class="icon far fa-calendar-alt"></i>تاریخ عضویت :"@Model.information.RegisterDate"</li>
+                            <li><i class="icon fas fa-money-bill-wave"></i>موجودی کیف پول :"@Model.information.Wallet"</li>
+                        </ul>
+                    </nav>
+                </section>
+            </div>
+        </div>
+    </main>
+    <!-- end main -->

@@ -1,0 +1,36 @@
+﻿@using Infrastructure.DTOs
+@using Infrastructure.Services.Interfaces
+@inject IUserService _userservice
+@{
+    SideBarViewModel user = _userservice.GetSideBarUserPannelData(User.Identity.Name);
+}
+
+
+<section class="section-right">
+    <article class="section-right-avatar ">
+        <a href="#">
+            <img src="/UserAvatar/@user.ImageName" alt="@user.ImageName" + avatarpic>
+        </a>
+                <div class="edit">
+            <span>"@user.UserName"</span>
+            <span>تاریخ عضویت :"@user.RegisterDate" </span>
+        </div>
+    </article>
+    <article class="section-right-nav">
+        <nav>
+            <h3>میز کار</h3>
+
+            <ul>
+                <li>
+                    <a href="/UserPannel"> مشاهده ی حساب کاربری</a>
+                </li>
+                <li>
+                    <a href="/EditUser">ویرایش حساب کاربری</a>
+                </li>
+                <li><a href="#">تغییر رمز عبور</a></li>
+                <li><a href="#">تنظیمات حساب کاربری</a></li>
+                <li><a href="/Logout">خروج</a></li>
+            </ul>
+        </nav>
+    </article>
+</section>

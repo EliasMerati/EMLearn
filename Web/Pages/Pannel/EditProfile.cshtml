@@ -1,0 +1,66 @@
+﻿@page "/EditUser"
+@model Web.Pages.Pannel.EditProfileModel
+@{
+    ViewData["Title"] = "ویرایش اطلاعات کاربری" + User.Identity.Name;
+}
+<div class="container">
+    <ul class="navigation-ul row">
+        <li class="navigation-item">
+            <a class="link-a" href="/">ای ام لرن</a>
+        </li>
+        /
+        <li class="navigation-item active">
+            ویرایش اطلاعات کاربری
+        </li>
+    </ul>
+</div>
+
+<!-- start main -->
+<main class="main1">
+    <div class="container">
+        <div class="section row">
+            <partial name="_SideBar" />
+            <section class="section-left">
+                <form action="post" class="main-box" enctype="multipart/form-data">
+                    @if (ViewBag.IsSuccess != null)
+                    {
+                        <div class="success">
+                            اطلاعات شما با موفقیت ویرایش شد
+                        </div>
+                    }
+                    <input type="hidden" asp-for="@Model.user.AvatarName" />
+                    <h1 class="main-box-h1">ویرایش پروفایل</h1>
+                    <div class="main-box-input">
+                        <span class="main-box-input-addon">
+                            <i class="fas fa-user">
+
+                            </i>
+                        </span>
+                        <input type="text" asp-for="@Model.user.UserName" class="form-control" placeholder="نام کاربری">
+                    </div>
+                    <div class="main-box-input">
+                        <span class="main-box-input-addon">
+                            <i class="fas fa-envelope">
+
+                            </i>
+
+                            <input type="text" asp-for="@Model.user.Email" class="form-control" placeholder="ایمیل">
+                    </div>
+                    <h4>انتخاب عکس پروفایل</h4>
+
+                    <div class="main-box-input">
+                        <span class="main-box-input-addon">
+                            <i class="fas fa-image">
+
+                            </i>
+
+                            <input type="file" asp-for="user.AvatarName">
+                    </div>
+                    <img src="/UserAvatar/@Model.user.AvatarName" style="max-width:150px;" />
+                    <button class="btn">ویرایش اطلاعات</button>
+                </form>
+            </section>
+        </div>
+    </div>
+</main>
+<!-- end main -->
