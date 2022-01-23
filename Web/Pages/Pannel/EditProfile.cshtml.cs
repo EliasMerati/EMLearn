@@ -1,5 +1,6 @@
 using Infrastructure.DTOs;
 using Infrastructure.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -26,7 +27,8 @@ namespace Web.Pages.Pannel
                 return Page();
             }
             _userservice.EditProfile(User.Identity.Name, _userservice.GetDataForEditProfileUser(User.Identity.Name));
-            return RedirectToPage("/Logout");
+
+            return Redirect("Logout");
         }
     }
 }

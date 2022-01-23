@@ -40,4 +40,23 @@ namespace Infrastructure.DTOs
 
         public string AvatarName { get; set; }
     }
+
+    public class ChangePasswordViewModel
+    {
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Display(Name = "کلمه عبور فعلی")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
+        public string OldPassword { get; set; }
+
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Display(Name = "کلمه عبور جدید")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Display(Name = "  تکرار کلمه عبور جدید")]
+        [MaxLength(200, ErrorMessage = "{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
+        [Compare("Password", ErrorMessage = "رمز های عبور وارد شده مغایرت دارند")]
+        public string RePassword { get; set; }
+    }
 }

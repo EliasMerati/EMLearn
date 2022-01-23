@@ -5,6 +5,7 @@ using Infrastructure.Convertors;
 using Infrastructure.DTOs;
 using Infrastructure.Generators;
 using Infrastructure.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,7 +39,7 @@ namespace Infrastructure.Services
 
         public int AddUser(User user)
         {
-            _db.Users.Add(user);
+            _db.Entry(user).State = EntityState.Added;
             _db.SaveChanges();
             return user.UserId;
         }
@@ -67,7 +68,7 @@ namespace Infrastructure.Services
 
         public void UpdateUser(User user)
         {
-            _db.Users.Update(user);
+            _db.Entry(user).State = EntityState.Modified;
             _db.SaveChanges();
         }
         public User GetUserByUserName(string userName)
@@ -113,6 +114,8 @@ namespace Infrastructure.Services
 
         public void EditProfile(string username, EditProfileViewModel profile)
         {
+
+
             if (profile.UserAvatar != null)
             {
                 string ImgPath = "";
@@ -132,14 +135,25 @@ namespace Infrastructure.Services
                 }
             }
             var user = GetUserByUserName(username);
-            if (user != null)
-            {
+
                 user.UserName = profile.UserName;
                 user.Email = profile.Email;
-                user.Avatar = profile.AvatarName; 
+                user.Avatar = profile.AvatarName;
 
                 UpdateUser(user);
-            }
+        }
+
+        public bool CompareOldPassword(string username, string oldpassword)
+        {
+            string HashOldPassword = PasswordHelper.EncodePasswordMd5(oldpassword);
+            return _db.Users.Any(u => u.UserName == username && u.Password == HashOldPassword);
+        }
+
+        public void ChangeUserPassword(string username, string newpassword)
+        {
+            var user = GetUserByUserName(username);
+            user.Password = PasswordHelper.EncodePasswordMd5(newpassword);
+            UpdateUser(user);
         }
 
         #endregion

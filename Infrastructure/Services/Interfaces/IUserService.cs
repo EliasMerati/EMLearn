@@ -26,6 +26,8 @@ namespace Infrastructure.Services.Interfaces
         SideBarViewModel GetSideBarUserPannelData(string username);
         EditProfileViewModel GetDataForEditProfileUser(string username);
         void EditProfile(string username, EditProfileViewModel profile);
+        bool CompareOldPassword(string username, string oldpassword);
+        void ChangeUserPassword(string username, string newpassword);
         #endregion
 
     }
