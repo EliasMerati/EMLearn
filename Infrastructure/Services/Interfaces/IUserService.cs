@@ -35,8 +35,10 @@ namespace Infrastructure.Services.Interfaces
         #region Wallet
         int BalanceUserWallet(string username);
         List<WalletViewModel> GetWalletUser(string username);
-        void ChargeWallet(string username ,int amount , string description,bool ispay=false);
-        void AddWallet(Wallet wallet);
+        int ChargeWallet(string username ,int amount , string description,bool ispay=false);
+        int AddWallet(Wallet wallet);
+        Wallet GetWalletByWalletId(int walletId);
+        void UpdateWallet(Wallet wallet);
         #endregion
 
     }

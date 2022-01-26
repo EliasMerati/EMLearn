@@ -27,8 +27,15 @@ namespace Web.Pages.Pannel
                 list = _userservice.GetWalletUser(User.Identity.Name);
                 return Page();
             }
-            _userservice.ChargeWallet(User.Identity.Name, charge.Amount, "شارژ حساب");
-            //TODO Online Payment
+           int walletid = _userservice.ChargeWallet(User.Identity.Name, charge.Amount, "شارژ حساب");
+            #region Online Payment
+            var payment = new ZarinpalSandbox.Payment(charge.Amount);
+            var res = payment.PaymentRequest("شارژ حساب", "https://localhost:44307/OnlinePayment" + walletid);
+            if (res.Result.Status == 100)
+            {
+                return Redirect("https://sandbox.zarinpal.com/pg/startpay/" + res.Result.Authority);
+            }
+            #endregion
             return null;
         }
     }

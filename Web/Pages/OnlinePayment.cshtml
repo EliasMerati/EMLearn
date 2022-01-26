@@ -1,0 +1,33 @@
+﻿@page "/OnlinePayment/{id}"
+@model Web.Pages.OnlinePaymentModel
+@{
+    ViewData["Title"] = "نتیجه پرداخت";
+}
+
+<div class="container">
+    <ul class="navigation-ul row">
+        <li class="navigation-item">
+            <a class="link-a" href="/">ای ام لرن</a>
+        </li>
+        /
+        <li class="navigation-item active">
+            نتیجه پرداخت
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="success">
+            <h2>پرداخت با موفقیت انجام شد</h2>
+            <p>کد پیگیری : @Model.refid</p>
+        </div>
+    }
+    else
+    {
+        <div class="danger">
+            <h2>پرداخت با شکست مواجه شد</h2>
+        </div>
+    }
+</div>

@@ -192,7 +192,7 @@ namespace Infrastructure.Services
                 
         }
 
-        public void ChargeWallet(string username, int amount,string description, bool ispay = false)
+        public int ChargeWallet(string username, int amount,string description, bool ispay = false)
         {
             Wallet wallet = new Wallet() 
             {
@@ -202,12 +202,24 @@ namespace Infrastructure.Services
                 TypeId = 1,
                 UserId = GetUserIdByUserName(username)
             };
-            AddWallet(wallet);
+           return AddWallet(wallet);
         }
 
-        public void AddWallet(Wallet wallet)
+        public int AddWallet(Wallet wallet)
         {
             _db.Wallets.Add(wallet);
+            _db.SaveChanges();
+            return wallet.WalletId;
+        }
+
+        public Wallet GetWalletByWalletId(int walletId)
+        {
+            return _db.Wallets.Find(walletId);
+        }
+
+        public void UpdateWallet(Wallet wallet)
+        {
+            _db.Wallets.Update(wallet);
             _db.SaveChanges();
         }
         #endregion
