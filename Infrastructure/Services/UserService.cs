@@ -1,5 +1,6 @@
 ﻿using Domain.Context;
 using Domain.Entities.User;
+using Domain.Entities.Wallet;
 using EMLearn.Infrastructure.Security;
 using Infrastructure.Convertors;
 using Infrastructure.DTOs;
@@ -37,6 +38,10 @@ namespace Infrastructure.Services
             return true;
         }
 
+        public int GetUserIdByUserName(string userName)
+        {
+            return _db.Users.Single(u => u.UserName == userName).UserId;
+        }
         public int AddUser(User user)
         {
             _db.Entry(user).State = EntityState.Added;
@@ -86,7 +91,7 @@ namespace Infrastructure.Services
             InformationUserViewModel information = new InformationUserViewModel();
             information.UserName = user.UserName;
             information.Email = user.Email;
-            information.Wallet = 0;
+            information.Wallet = BalanceUserWallet(username);
             information.RegisterDate = user.RegisterDate;
 
             return information;
@@ -136,11 +141,11 @@ namespace Infrastructure.Services
             }
             var user = GetUserByUserName(username);
 
-                user.UserName = profile.UserName;
-                user.Email = profile.Email;
-                user.Avatar = profile.AvatarName;
+            user.UserName = profile.UserName;
+            user.Email = profile.Email;
+            user.Avatar = profile.AvatarName;
 
-                UpdateUser(user);
+            UpdateUser(user);
         }
 
         public bool CompareOldPassword(string username, string oldpassword)
@@ -156,6 +161,55 @@ namespace Infrastructure.Services
             UpdateUser(user);
         }
 
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        #region Wallet
+        public int BalanceUserWallet(string username)
+        {
+            var userid = GetUserIdByUserName(username);
+            var deposit = _db.Wallets.Where(w => w.UserId == userid && w.TypeId == 1 && w.IsPay)
+                .Select(w => w.Amount)
+                .ToList();
+            var withdraw = _db.Wallets.Where(w => w.UserId == userid && w.TypeId == 2)
+                .Select(w => w.Amount)
+                .ToList();
+            return (deposit.Sum() - withdraw.Sum());
+        }
+
+        public List<WalletViewModel> GetWalletUser(string username)
+        {
+            int userid = GetUserIdByUserName(username);
+            return _db.Wallets
+                .Where(w => w.IsPay && w.UserId == userid).Select(w => new WalletViewModel
+                {
+                    Amount = w.Amount,
+                    Date = w.CreateDate,
+                    Description = w.Description,
+                    Type = w.TypeId
+                }).ToList();
+                
+        }
+
+        public void ChargeWallet(string username, int amount,string description, bool ispay = false)
+        {
+            Wallet wallet = new Wallet() 
+            {
+                Amount = amount,
+                Description = description,
+                IsPay = ispay,
+                TypeId = 1,
+                UserId = GetUserIdByUserName(username)
+            };
+            AddWallet(wallet);
+        }
+
+        public void AddWallet(Wallet wallet)
+        {
+            _db.Wallets.Add(wallet);
+            _db.SaveChanges();
+        }
         #endregion
     }
 }

@@ -1,0 +1,73 @@
+﻿@page "/UserWallet"
+@model Web.Pages.Pannel.WalletModel
+@{
+    ViewData["Title"] = "کیف پول" + User.Identity.Name;
+}
+
+<div class="container">
+    <ul class="navigation-ul row">
+        <li class="navigation-item">
+            <a class="link-a" href="/">ای ام لرن</a>
+        </li>
+        /
+        <li class="navigation-item active">
+            کیف پول
+        </li>
+    </ul>
+</div>
+
+<!-- start main -->
+<main class="main1">
+    <div class="container">
+        <div class="section row">
+            <partial name="_SideBar" />
+            <section class="section-left">
+                <form method="post" class="main-box">
+                    <h1 class="main-box-h1">شارژ کیف پول</h1>
+                    <div class="main-box-input">
+                        <span class="main-box-input-addon">
+                            <i class="fas fa-money-bill-alt">
+
+                            </i>
+                        </span>
+                        <input type="number" asp-for="@Model.charge.Amount" class="form-control" placeholder="ورود مبلغ به تومان">
+                    </div>
+                    <div class="textdanger" asp-validation-summary=All></div>
+                    <button class="btn">شارژ کیف پول</button>
+                </form>
+                <hr />
+                <table>
+                    <thead>
+                        <tr>
+                            <th>مبلغ</th>
+                            <th>تاریخ</th>
+                            <th>نوع</th>
+                            <th>شرح</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.list)
+                        {
+                            <tr>
+                                <td>@item.Amount.ToString("#,0 تومان")</td>
+                                <td>@item.Date</td>
+                                <td>
+                                    @if(@item.Type == 1)
+                                    {
+                                        <p class="textsuccess">واریز به حساب</p>
+                                    }
+                                    else
+                                    { 
+                                        <p class="textdanger">برداشت از حساب</p>
+                                    }
+                                </td>
+                                <td>@item.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</main>
+<!-- end main -->

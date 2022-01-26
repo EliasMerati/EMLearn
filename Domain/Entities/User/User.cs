@@ -51,6 +51,7 @@ namespace Domain.Entities.User
 
         #region Relations
         public virtual List<UsersRole> UserRoles { get; set; }
+        public virtual List<Wallet.Wallet> Wallets { get; set; }
         #endregion
     }
 }
