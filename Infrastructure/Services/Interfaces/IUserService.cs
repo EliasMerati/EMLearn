@@ -41,5 +41,9 @@ namespace Infrastructure.Services.Interfaces
         void UpdateWallet(Wallet wallet);
         #endregion
 
+        #region AdminPannel
+        UserForAdminViewModel GetUsers(int PageId = 1 ,string FilterEmail = "" , string FilterUserName = "");
+        #endregion
+
     }
 }

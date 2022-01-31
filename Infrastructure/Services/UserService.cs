@@ -24,6 +24,8 @@ namespace Infrastructure.Services
             _db = db;
         }
 
+        ////////////////////////////////////////Users//////////////////////////////////////////////
+
         #region User
         public bool ActiveAccount(string activecode)
         {
@@ -82,7 +84,7 @@ namespace Infrastructure.Services
         }
         #endregion
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////UserPannel//////////////////////////////////////////
 
         #region UserPannel
         public InformationUserViewModel GetInformationUser(string username)
@@ -163,7 +165,7 @@ namespace Infrastructure.Services
 
         #endregion
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////Wallet//////////////////////////////////////////////
 
         #region Wallet
         public int BalanceUserWallet(string username)
@@ -189,12 +191,12 @@ namespace Infrastructure.Services
                     Description = w.Description,
                     Type = w.TypeId
                 }).ToList();
-                
+
         }
 
-        public int ChargeWallet(string username, int amount,string description, bool ispay = false)
+        public int ChargeWallet(string username, int amount, string description, bool ispay = false)
         {
-            Wallet wallet = new Wallet() 
+            Wallet wallet = new Wallet()
             {
                 Amount = amount,
                 Description = description,
@@ -202,7 +204,7 @@ namespace Infrastructure.Services
                 TypeId = 1,
                 UserId = GetUserIdByUserName(username)
             };
-           return AddWallet(wallet);
+            return AddWallet(wallet);
         }
 
         public int AddWallet(Wallet wallet)
@@ -221,6 +223,35 @@ namespace Infrastructure.Services
         {
             _db.Wallets.Update(wallet);
             _db.SaveChanges();
+        }
+        #endregion
+
+        //////////////////////////////////////AdminPannel//////////////////////////////////////////
+
+        #region AdminPannel
+        public UserForAdminViewModel GetUsers(int PageId = 1, string FilterEmail = "", string FilterUserName = "")
+        {
+            IQueryable<User> result = _db.Users;
+
+            if (!string.IsNullOrEmpty(FilterEmail))
+            {
+                result = _db.Users.Where(u=> u.Email.Contains(FilterEmail));
+            }
+
+            if (!string.IsNullOrEmpty(FilterUserName))
+            {
+                result = _db.Users.Where(u=>u.UserName.Contains(FilterUserName));
+            }
+            // Show Item In Page
+            int take = 20;
+            int skip = (PageId - 1) * take;
+            /////////////////////////
+            UserForAdminViewModel list = new UserForAdminViewModel();
+            list.CurrentPage = PageId;
+            list.PageCount = result.Count() / take;
+            list.users = result.OrderBy(u=> u.RegisterDate).Skip(skip).Take(take).ToList();
+            /////////////////////////
+            return list;
         }
         #endregion
     }
