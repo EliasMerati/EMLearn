@@ -49,6 +49,8 @@ namespace Domain.Entities.User
         [DataType(DataType.DateTime)]
         public string RegisterDate { get; set; }
 
+        public bool IsDelete { get; set; }
+
         #region Relations
         public virtual List<UsersRole> UserRoles { get; set; }
         public virtual List<Wallet.Wallet> Wallets { get; set; }

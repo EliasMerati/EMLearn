@@ -95,6 +95,13 @@ namespace Infrastructure.Services
             _db.Entry(user).State = EntityState.Modified;
             _db.SaveChanges();
         }
+
+        public void DeleteUser(int userid)
+        {
+            User user = GetUserById(userid);
+            user.IsDelete = true;
+            UpdateUser(user);
+        }
         public User GetUserByUserName(string userName)
         {
             return _db.Users.SingleOrDefault(u => u.UserName == userName);
@@ -116,6 +123,17 @@ namespace Infrastructure.Services
             return information;
         }
 
+        public InformationUserViewModel GetInformationUser(int userid)
+        {
+            var user = GetUserById(userid);
+            InformationUserViewModel information = new InformationUserViewModel();
+            information.UserName = user.UserName;
+            information.Email = user.Email;
+            information.Wallet = BalanceUserWallet(user.UserName);
+            information.RegisterDate = user.RegisterDate;
+
+            return information;
+        }
         public SideBarViewModel GetSideBarUserPannelData(string username)
         {
             return _db.Users.Where(u => u.UserName == username).Select(u => new SideBarViewModel()
@@ -249,6 +267,31 @@ namespace Infrastructure.Services
         public UserForAdminViewModel GetUsers(int PageId = 1, string FilterEmail = "", string FilterUserName = "")
         {
             IQueryable<User> result = _db.Users;
+
+            if (!string.IsNullOrEmpty(FilterEmail))
+            {
+                result = _db.Users.Where(u => u.Email.Contains(FilterEmail));
+            }
+
+            if (!string.IsNullOrEmpty(FilterUserName))
+            {
+                result = _db.Users.Where(u => u.UserName.Contains(FilterUserName));
+            }
+            // Show Item In Page
+            int take = 20;
+            int skip = (PageId - 1) * take;
+            /////////////////////////
+            UserForAdminViewModel list = new UserForAdminViewModel();
+            list.CurrentPage = PageId;
+            list.PageCount = result.Count() / take;
+            list.users = result.OrderBy(u => u.RegisterDate).Skip(skip).Take(take).ToList();
+            /////////////////////////
+            return list;
+        }
+
+        public UserForAdminViewModel GetDeleteUsers(int PageId = 1, string FilterEmail = "", string FilterUserName = "")
+        {
+            IQueryable<User> result = _db.Users.IgnoreQueryFilters().Where(u=> u.IsDelete);
 
             if (!string.IsNullOrEmpty(FilterEmail))
             {

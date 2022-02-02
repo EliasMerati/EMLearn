@@ -1,5 +1,5 @@
-﻿@page "/Users"
-@model Web.Pages.Admin.Users.IndexModel
+﻿@page "/DeleteUsers"
+@model Web.Pages.Admin.Users.ShowDeleteUsersModel
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "ادمین سایت | مدیریت کاربران";
@@ -62,7 +62,7 @@
                                 <a href="/EditUser/@user.UserId" class="btn btn-outline btn-warning btn-sm">
                                     ویرایش
                                 </a>
-                                <a href="/DeleteUser/@user.UserId" class="btn btn-outline btn-danger btn-sm">
+                                <a href="#" class="btn btn-outline btn-danger btn-sm">
                                     حذف
                                 </a>
                             </td>

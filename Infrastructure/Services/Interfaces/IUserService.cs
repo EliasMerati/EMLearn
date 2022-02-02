@@ -17,6 +17,7 @@ namespace Infrastructure.Services.Interfaces
         int AddUser(User user);
         void SaveUserImage(User user , EditUserViewModel editUser);
         void UpdateUser(User user);
+        void DeleteUser(int userid);
         User LoginUser(LoginViewModel login);
         User GetUserById(int userid);
         User GetUserByEmail(string email);
@@ -27,6 +28,7 @@ namespace Infrastructure.Services.Interfaces
 
         #region UserPannel
         InformationUserViewModel GetInformationUser(string username);
+        InformationUserViewModel GetInformationUser(int userid);
         SideBarViewModel GetSideBarUserPannelData(string username);
         EditProfileViewModel GetDataForEditProfileUser(string username);
         void EditProfile(string username, EditProfileViewModel profile);
@@ -45,6 +47,7 @@ namespace Infrastructure.Services.Interfaces
 
         #region AdminPannel
         UserForAdminViewModel GetUsers(int PageId = 1 ,string FilterEmail = "" , string FilterUserName = "");
+        UserForAdminViewModel GetDeleteUsers(int PageId = 1, string FilterEmail = "", string FilterUserName = "");
         int AddUserByAdmin(CreateUserViewModel user);
         EditUserViewModel GetUserForShowEditMode(int userid);
         void EditUserByAdmin(EditUserViewModel edituser);

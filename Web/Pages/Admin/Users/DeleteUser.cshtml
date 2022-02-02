@@ -1,0 +1,35 @@
+﻿@page "/DeleteUser/{id}"
+@model Web.Pages.Admin.Users.DeleteUserModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "ادمین سایت | حذف کاربر";
+}
+
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            مشخصات کاربر
+        </div>
+        <div class="panel-body">
+            <form method="post">
+                <dl class="dl-horizontal">
+                    <input type="hidden" name="UserId" value="@ViewData["id"].ToString()"/>
+                    <dt>نام کاربری :</dt>
+                    <dd>@Model.information.UserName</dd>
+                    <dt>ایمیل :</dt>
+                    <dd>@Model.information.Email</dd>
+                    <dt>موجودی کیف پول :</dt>
+                    <dd>@Model.information.Wallet</dd>
+                    <dt>تاریخ عضویت :</dt>
+                    <dd>@Model.information.RegisterDate</dd>
+                    <dt></dt>
+                    <dd>
+                        <input type="submit" value="حذف کاربر" class="btn btn-outline btn-danger"/>
+                    </dd>
+                </dl>
+            </form>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
