@@ -40,6 +40,18 @@ namespace Infrastructure.Services
             return true;
         }
 
+        public void SaveUserImage(User user, EditUserViewModel editUser)
+        {
+            string ImgPath = "";
+
+            user.Avatar = CodeGenerator.GenerateUniqCode() + Path.GetExtension(editUser.UserAvatar.FileName);
+            ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar", user.Avatar);
+            using (var stream = new FileStream(ImgPath, FileMode.Create))
+            {
+                editUser.UserAvatar.CopyTo(stream);
+            }
+        }
+
         public int GetUserIdByUserName(string userName)
         {
             return _db.Users.Single(u => u.UserName == userName).UserId;
@@ -71,6 +83,11 @@ namespace Infrastructure.Services
             string hashpass = PasswordHelper.EncodePasswordMd5(login.Password);
             string email = FixedText.FixedEmail(login.Email);
             return _db.Users.SingleOrDefault(u => u.Email == email && u.Password == hashpass);
+        }
+
+        public User GetUserById(int userid)
+        {
+            return _db.Users.Find(userid);
         }
 
         public void UpdateUser(User user)
@@ -235,12 +252,12 @@ namespace Infrastructure.Services
 
             if (!string.IsNullOrEmpty(FilterEmail))
             {
-                result = _db.Users.Where(u=> u.Email.Contains(FilterEmail));
+                result = _db.Users.Where(u => u.Email.Contains(FilterEmail));
             }
 
             if (!string.IsNullOrEmpty(FilterUserName))
             {
-                result = _db.Users.Where(u=>u.UserName.Contains(FilterUserName));
+                result = _db.Users.Where(u => u.UserName.Contains(FilterUserName));
             }
             // Show Item In Page
             int take = 20;
@@ -249,7 +266,7 @@ namespace Infrastructure.Services
             UserForAdminViewModel list = new UserForAdminViewModel();
             list.CurrentPage = PageId;
             list.PageCount = result.Count() / take;
-            list.users = result.OrderBy(u=> u.RegisterDate).Skip(skip).Take(take).ToList();
+            list.users = result.OrderBy(u => u.RegisterDate).Skip(skip).Take(take).ToList();
             /////////////////////////
             return list;
         }
@@ -263,7 +280,7 @@ namespace Infrastructure.Services
             adduser.RegisterDate = DateTime.Now.Date();
             adduser.ActiveCode = CodeGenerator.GenerateUniqCode();
             adduser.IsActive = true;
-            
+
             #region SaveAvatar
             if (user.UserAvatar != null)
             {
@@ -281,6 +298,43 @@ namespace Infrastructure.Services
             return AddUser(adduser);
 
         }
+
+        public EditUserViewModel GetUserForShowEditMode(int userid)
+        {
+            return _db.Users.Where(u => u.UserId == userid).Select(u => new EditUserViewModel()
+            {
+                UserId = u.UserId,
+                AvatarName = u.Avatar,
+                Email = u.Email,
+                UserName = u.UserName,
+                UserRoles = u.UserRoles.Select(u => u.RoleId).ToList()
+
+            }).Single();
+        }
+
+        public void EditUserByAdmin(EditUserViewModel edituser)
+        {
+            User user = GetUserById(edituser.UserId);
+            user.Email = edituser.Email;
+            if (!string.IsNullOrEmpty(edituser.Password))
+            {
+                user.Password = PasswordHelper.EncodePasswordMd5(edituser.Password);
+            }
+            if (edituser.UserAvatar != null)
+            {
+                string deletepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar", edituser.AvatarName);
+                if (File.Exists(deletepath))
+                {
+                    File.Delete(deletepath);
+                }
+                SaveUserImage(user, edituser);
+            }
+
+            _db.Users.Update(user);
+            _db.SaveChanges();
+        }
+
+
         #endregion
     }
 }

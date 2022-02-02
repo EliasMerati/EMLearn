@@ -15,8 +15,10 @@ namespace Infrastructure.Services.Interfaces
         bool IsExistUserName(string userName);
         bool IsExistEmail(string email);
         int AddUser(User user);
+        void SaveUserImage(User user , EditUserViewModel editUser);
         void UpdateUser(User user);
         User LoginUser(LoginViewModel login);
+        User GetUserById(int userid);
         User GetUserByEmail(string email);
         User GetUserByUserName(string userName);
         bool ActiveAccount(string activecode);
@@ -44,6 +46,8 @@ namespace Infrastructure.Services.Interfaces
         #region AdminPannel
         UserForAdminViewModel GetUsers(int PageId = 1 ,string FilterEmail = "" , string FilterUserName = "");
         int AddUserByAdmin(CreateUserViewModel user);
+        EditUserViewModel GetUserForShowEditMode(int userid);
+        void EditUserByAdmin(EditUserViewModel edituser);
         #endregion
 
     }

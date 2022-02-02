@@ -23,7 +23,7 @@ namespace Infrastructure.Services
             return _db.Roles.ToList();
         }
 
-        public void UserRoles(int userid, List<int> rolid)
+        public void AddUserRoles(int userid, List<int> rolid)
         {
             foreach (int rid in rolid)
             {
@@ -34,6 +34,14 @@ namespace Infrastructure.Services
                 });
                 _db.SaveChanges();
             }
+        }
+
+        public void EditUserRoles(int userid, List<int> rolid)
+        {
+            //remove roles
+            _db.UserRoles.Where(r => r.UserId == userid).ToList().ForEach(r => _db.UserRoles.Remove(r));
+            // add new roles
+            AddUserRoles(userid, rolid);
         }
     }
 }

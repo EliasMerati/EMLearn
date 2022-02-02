@@ -1,0 +1,103 @@
+﻿ @page "/EditUser/{id}"
+ @using Domain.Entities.User
+@model Web.Pages.Admin.Users.EditUserModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "ادمین سایت | ویرایش کاربر";
+    List<Role> Roles = ViewData["Roles"] as List<Role>;
+}
+
+<div class="container">
+    <ul class="navigation-ul row">
+        <li class="navigation-item">
+            <a class="link-a" href="/">ای ام لرن</a>
+        </li>
+        /
+        <li class="navigation-item active">
+            ویرایش کاربر
+        </li>
+    </ul>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    اطلاعات کاربر
+                </div>
+                <div class="panel panel-body">
+                    <input type="hidden" asp-for="edituser.UserId" />
+                    <input type="hidden" asp-for="edituser.AvatarName" />
+                    <div class="form-group">
+                        <label>نام کاربری</label>
+                        <lable class="text-success">@Model.edituser.UserName</lable>
+                    </div>
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" asp-for="edituser.Email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>کلمه عبور</label>
+                        <input type="text" asp-for="edituser.Password" class="form-control">
+                        <p class="help-block">در صورت وارد کردن کلمه عبور ، کلمه ی عبور کاربر تغییر خواهد کرد</p>
+                    </div>
+                    <h3>نقش های کاربر</h3>
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @foreach (var item in Roles)
+                            {
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="UserRoles" value="@item.RoleId" @((Model.edituser.UserRoles.Any(r=> r==item.RoleId)?"checked":""))>@item.RoleTitle
+                                    </label>
+                                </div> 
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="ویرایش اطلاعات" class="btn btn-outline btn-success" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    آواتار
+                </div>
+                <div class="panel panel-body">
+                    <img id="previewHolder" class="thumbnail" src="~/UserAvatar/@Model.edituser.AvatarName" />
+                    <div class="form-group">
+                        <label>انتخاب تصویر</label>
+                        <input type="file" asp-for="edituser.UserAvatar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+<script>
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $('#previewHolder').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        alert('select a file to see preview');
+        $('#previewHolder').attr('src', '');
+      }
+    }
+
+    $("#edituser_UserAvatar").change(function() {
+      readURL(this);
+    });
+</script>
+}

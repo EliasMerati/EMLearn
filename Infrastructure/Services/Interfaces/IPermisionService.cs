@@ -10,6 +10,7 @@ namespace Infrastructure.Services.Interfaces
     public interface IPermisionService
     {
         List<Role> GetRoles();
-        void UserRoles(int userid, List<int> rolid);
+        void AddUserRoles(int userid, List<int> rolid);
+        void EditUserRoles(int userid, List<int> rolid);
     }
 }
