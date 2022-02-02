@@ -253,6 +253,34 @@ namespace Infrastructure.Services
             /////////////////////////
             return list;
         }
+
+        public int AddUserByAdmin(CreateUserViewModel user)
+        {
+            User adduser = new User();
+            adduser.Password = PasswordHelper.EncodePasswordMd5(user.Password);
+            adduser.UserName = user.UserName;
+            adduser.Email = user.Email;
+            adduser.RegisterDate = DateTime.Now.Date();
+            adduser.ActiveCode = CodeGenerator.GenerateUniqCode();
+            adduser.IsActive = true;
+            
+            #region SaveAvatar
+            if (user.UserAvatar != null)
+            {
+                string ImgPath = "";
+
+                adduser.Avatar = CodeGenerator.GenerateUniqCode() + Path.GetExtension(user.UserAvatar.FileName);
+                ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar", adduser.Avatar);
+                using (var stream = new FileStream(ImgPath, FileMode.Create))
+                {
+                    user.UserAvatar.CopyTo(stream);
+                }
+            }
+            #endregion
+
+            return AddUser(adduser);
+
+        }
         #endregion
     }
 }

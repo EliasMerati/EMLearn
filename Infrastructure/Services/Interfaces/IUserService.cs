@@ -43,6 +43,7 @@ namespace Infrastructure.Services.Interfaces
 
         #region AdminPannel
         UserForAdminViewModel GetUsers(int PageId = 1 ,string FilterEmail = "" , string FilterUserName = "");
+        int AddUserByAdmin(CreateUserViewModel user);
         #endregion
 
     }
