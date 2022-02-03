@@ -1,4 +1,5 @@
 ﻿using Domain.Context;
+using Domain.Entities.Permission;
 using Domain.Entities.User;
 using Infrastructure.Services.Interfaces;
 using System;
@@ -18,6 +19,7 @@ namespace Infrastructure.Services
             _db = db;
         }
 
+        #region Roles
         public List<Role> GetRoles()
         {
             return _db.Roles.ToList();
@@ -67,5 +69,42 @@ namespace Infrastructure.Services
             role.IsDelete = true;
             UpdateRole(role);
         }
+
+        #endregion
+
+        #region Permissions
+        public List<Permission> GetAllPermission()
+        {
+            return _db.Permission.ToList();
+        }
+
+        public void AddPermissionToRole(int roleid, List<int> permission)
+        {
+            foreach (var p in permission)
+            {
+                _db.RolePermission.Add(new RolePermission 
+                {
+                    RoleId = roleid,
+                    PermissionId=p
+                });
+            }
+            _db.SaveChanges();
+        }
+
+        public List<int> PermissionsRol(int roleid)
+        {
+            return _db.RolePermission.Where(r=>r.RoleId == roleid).Select(r=>r.PermissionId).ToList();
+        }
+
+        public void UpdatePermissionsRole(int roleid, List<int> permission)
+        {
+            _db.RolePermission.Where(p=>p.RoleId == roleid)
+                .ToList()
+                .ForEach(r => _db.RolePermission.Remove(r));
+
+            AddPermissionToRole(roleid, permission);
+        }
+        #endregion
+
     }
 }

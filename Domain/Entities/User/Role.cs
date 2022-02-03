@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Permission;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Domain.Entities.User
 
         #region Relations
         public virtual List<User> Users { get; set; }
+        public virtual List<RolePermission> RolePermissions { get; set; }
         #endregion
     }
 }

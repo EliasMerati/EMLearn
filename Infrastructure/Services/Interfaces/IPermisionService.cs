@@ -1,4 +1,5 @@
-﻿using Domain.Entities.User;
+﻿using Domain.Entities.Permission;
+using Domain.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Infrastructure.Services.Interfaces
 {
     public interface IPermisionService
     {
+        #region Roles
         List<Role> GetRoles();
         int AddRole(Role role);
         void UpdateRole(Role role);
@@ -17,6 +19,15 @@ namespace Infrastructure.Services.Interfaces
 
         void AddUserRoles(int userid, List<int> rolid);
         void EditUserRoles(int userid, List<int> rolid);
+        #endregion
+
+        #region Permissions
+        List<Permission> GetAllPermission();
+        void AddPermissionToRole(int roleid,List<int> permission);
+        List<int> PermissionsRol(int roleid);
+        void UpdatePermissionsRole(int roleid,List<int> permission);
+        #endregion
+
 
     }
 }

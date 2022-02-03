@@ -1,4 +1,5 @@
-﻿using Domain.Entities.User;
+﻿using Domain.Entities.Permission;
+using Domain.Entities.User;
 using Domain.Entities.Wallet;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,6 +25,11 @@ namespace Domain.Context
         #region Wallet
         public DbSet<WalletType> WalletTypes { get; set; }
         public DbSet<Wallet> Wallets { get; set; }
+        #endregion
+
+        #region Permission
+        public DbSet<Permission> Permission { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
         #endregion
 
         // Query Filter
