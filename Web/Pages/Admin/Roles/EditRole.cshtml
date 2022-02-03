@@ -1,0 +1,38 @@
+﻿@page "/EditRole/{id}"
+@model Web.Pages.Admin.Roles.EditRoleModel
+@{
+     Layout = "_AdminLayout";
+    ViewData["Title"] = "ادمین سایت | ویرایش نقش ";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    ویرایش نقش +"@Model.role.RoleTitle"
+                </div>
+                <div class="panel panel-body">
+                    <div class="form-group">
+                        <label>نام نقش</label>
+                        <input type="text" asp-for="role.RoleTitle" class="form-control">
+                    </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="ذخیره اطلاعات" class="btn btn-outline btn-success" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    دسترسی ها
+                </div>
+                <div class="panel panel-body">
+
+                </div>
+            </div>
+        </div>
+</form>

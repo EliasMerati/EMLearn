@@ -43,5 +43,29 @@ namespace Infrastructure.Services
             // add new roles
             AddUserRoles(userid, rolid);
         }
+
+        public int AddRole(Role role)
+        {
+            _db.Roles.Add(role);
+            _db.SaveChanges();
+            return role.RoleId;
+        }
+
+        public Role GetRoleById(int roleid)
+        {
+            return _db.Roles.Find(roleid);
+        }
+
+        public void UpdateRole(Role role)
+        {
+            _db.Roles.Update(role);
+            _db.SaveChanges();
+        }
+
+        public void DeleteRole(Role role)
+        {
+            role.IsDelete = true;
+            UpdateRole(role);
+        }
     }
 }

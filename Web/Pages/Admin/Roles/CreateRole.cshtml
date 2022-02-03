@@ -1,0 +1,38 @@
+﻿@page "/CreateRole"
+@model Web.Pages.Admin.Roles.CreateRoleModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "ادمین سایت | افزودن نقش ";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    اطلاعات نقش
+                </div>
+                <div class="panel panel-body">
+                    <div class="form-group">
+                        <label>نام کاربری</label>
+                        <input type="text" asp-for="role.RoleTitle" class="form-control">
+                    </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="ذخیره اطلاعات" class="btn btn-outline btn-success" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    دسترسی ها
+                </div>
+                <div class="panel panel-body">
+
+                </div>
+            </div>
+        </div>
+</form>

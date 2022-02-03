@@ -1,0 +1,18 @@
+﻿@page "/DeleteRole/{id}"
+@model Web.Pages.Admin.Roles.DeleteRoleModel
+@{
+     Layout = "_AdminLayout";
+    ViewData["Title"] = "ادمین سایت | حذف نقش ";
+}
+
+<div class="container alert-danger">
+<form method="post">
+    <input type="hidden" value="@Model.role.RoleId" />
+    <input type="hidden" value="@Model.role.RoleTitle" 
+    <h2>آیا از حذف نقش "@Model.role.RoleTitle" مطمئن هستید؟</h2>
+    <p>
+        <input type="submit" value="حذف" class="btn btn-outline btn danger" />
+        <a asp-page="/Roles" class="btn btn-outline btn-warning">انصراف</a>
+    </p>
+</form>
+</div>

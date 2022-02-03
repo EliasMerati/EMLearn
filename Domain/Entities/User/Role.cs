@@ -18,9 +18,10 @@ namespace Domain.Entities.User
         public int RoleId { get; set; }
 
         [Required(ErrorMessage ="لطفا {0} را وارد کنید")]
-        [Display(Name ="")]
+        [Display(Name ="نام نقش")]
         [MaxLength(200,ErrorMessage ="{0} نمیتواند بیشتر از {1} کاراکتر باشد")]
         public string RoleTitle { get; set; }
+        public bool IsDelete { get; set; }
 
         #region Relations
         public virtual List<User> Users { get; set; }
